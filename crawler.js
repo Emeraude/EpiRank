@@ -8,7 +8,7 @@ var rp = new Rp(5);
 require('pretty-console.log').enable();
 
 function getStudent(login, cookies) {
-  rp.query({protocol: 'https', host: 'intra.epitech.eu', path:'/user/' + login + '/?format=json', port: 443, method: 'GET', headers:{ 'Cookie': cookies}, retry: true}, function(e, res) {
+  rp.request({protocol: 'https', host: 'intra.epitech.eu', path:'/user/' + login + '/?format=json', port: 443, method: 'GET', headers:{ 'Cookie': cookies}, retry: true}, function(e, res) {
     if (e)
       console.error(e);
     var x = '';
@@ -21,9 +21,9 @@ function getStudent(login, cookies) {
   });
 }
 
-rp.query({protocol: 'https', host: 'intra.epitech.eu', path: '/', port: 443, method: 'POST'}, {login: config.login, password: config.password}, function(e, res) {
+rp.request({protocol: 'https', host: 'intra.epitech.eu', path: '/', port: 443, method: 'POST'}, {login: config.login, password: config.password}, function(e, res) {
   var cookies = cookie.parse(res.headers['set-cookie'][0]);
-  rp.query({protocol: 'https', host: 'intra.epitech.eu', path:'/user/complete?format=json', port: 443, method: 'GET', headers:{ 'Cookie': cookie.serialize('PHPSESSID', cookies['PHPSESSID'])}}, function(e, res) {
+  rp.request({protocol: 'https', host: 'intra.epitech.eu', path:'/user/complete?format=json', port: 443, method: 'GET', headers:{ 'Cookie': cookie.serialize('PHPSESSID', cookies['PHPSESSID'])}}, function(e, res) {
     var x = '';
     res.on('data', function(d) {
       x += d;
