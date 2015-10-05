@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 
 var Rp = require('requests-pool');
-var cheerio = require('cheerio');
 var cookie = require('cookie');
 var config = require('./config.json');
 var rp = new Rp(5);
-require('pretty-console.log').enable();
 
 function currentScolarYear() {
   var d = new Date();

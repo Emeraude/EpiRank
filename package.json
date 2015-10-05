@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^0.19.0",
     "cookie": "^0.2.2",
     "mariasql": "^0.2.1",
     "requests-pool": "^1.6.0"
