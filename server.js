@@ -16,7 +16,6 @@ function invalidRoute(req, res) {
 function serveApi(req, res) {
   if (!req.params.promo.match(/^\d+$/))
     invalidRoute(req, res);
-  console.log(req.params);
   query = 'SELECT * FROM `Users` WHERE `promo` = :promo';
   if (req.params.city) {
     req.params.city = '%' + req.params.city;
