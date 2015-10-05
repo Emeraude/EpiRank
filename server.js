@@ -16,20 +16,23 @@ function invalidRoute(req, res) {
 function serveApi(req, res) {
   if (!req.params.promo.match(/^\d+$/))
     invalidRoute(req, res);
-  query = 'SELECT * FROM `Users` WHERE `promo` = :promo';
-  if (req.params.city) {
-    req.params.city = '%' + req.params.city;
-    query += ' AND `city` LIKE :city';
+  else {
+    query = 'SELECT * FROM `Users` WHERE `promo` = :promo';
+    if (req.params.city) {
+      req.params.city = '%' + req.params.city;
+      query += ' AND `city` LIKE :city';
+    }
+    res.header('Content-Type', 'application/json')
+    db.query(query, req.params, function(e, r) {
+      res.send(r);
+    });
   }
-  res.header('Content-Type', 'application/json')
-  db.query(query, req.params, function(e, r) {
-    res.send(r);
-  });
 }
 
 app.listen(config.port)
 app.get('/api/:promo', serveApi)
   .get('/api/:promo/:city', serveApi)
+  .get('/api*', invalidRoute)
   .use(function(req, res) {
     res.statusCode = 404;
     res.statusMessage = 'Not found',
