@@ -7,6 +7,14 @@ var config = require('./config.json');
 var rp = new Rp(5);
 require('pretty-console.log').enable();
 
+function currentScolarYear() {
+  var d = new Date();
+
+  if (d.getMonth() > 7)
+    return d.getFullYear();
+  return d.getFullYear() - 1;
+}
+
 function getStudent(login, cookies) {
   rp.request({protocol: 'https', host: 'intra.epitech.eu', path:'/user/' + login + '/?format=json', port: 443, method: 'GET', headers:{ 'Cookie': cookies}, retry: true}, function(e, res) {
     if (e)
@@ -16,6 +24,8 @@ function getStudent(login, cookies) {
       x += d;
     }).on('end', function() {
       var data = JSON.parse(x);
+      if (data.scolaryear != currentScolarYear())
+	return;
       console.log(login + ' : ' + data.gpa[0].gpa);
     });
   });
