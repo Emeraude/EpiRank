@@ -39,9 +39,11 @@ function getStudent(login, cookies) {
 	availableSpices: student.spice && student.spice.available_spice,
 	consumedSpices: student.spice && student.spice.consumed_spice
       };
-      db.query('INSERT INTO `Users`(`login`, `firstname`, `lastname`, `promo`, `gpaBachelor`, `gpaMaster`, `city`, `credits`, `availableSpices`, `consumedSpices`) VALUES(:login, :firstname, :lastname, :promo, :gpaBachelor, :gpaMaster, :city, :credits, :availableSpices, :consumedSpices)', data, function(e, r) {
-	if (e)
+      db.query('INSERT INTO `Users`(`login`, `firstname`, `lastname`, `promo`, `gpaBachelor`, `gpaMaster`, `city`, `credits`, `availableSpices`, `consumedSpices`) VALUES(:login, :firstname, :lastname, :promo, :gpaBachelor, :gpaMaster, :city, :credits, :availableSpices, :consumedSpices) ON DUPLICATE KEY UPDATE `promo` = VALUES(`promo`), `gpaBachelor` = VALUES(`gpaBachelor`), `gpaMaster` = VALUES(`gpaMaster`), `city` = VALUES(`city`), `credits` = VALUES(`credits`), `availableSpices` = VALUES(`availableSpices`), `consumedSpices` = VALUES(`consumedSpices`)', data, { metadata: true }, function(e, r) {
+	if (e) {
 	  console.error(e);
+	  return;
+	}
 	console.log(login + ' added');
       });
     });
