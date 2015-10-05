@@ -1,6 +1,7 @@
 {
   "login": "login_x",
   "password": "4242",
+  "port": 8080,
   "db": {
     "host": "localhost",
     "user": "root",

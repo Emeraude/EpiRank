@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cookie": "^0.2.2",
+    "express": "^4.13.3",
     "mariasql": "^0.2.1",
     "requests-pool": "^1.6.0"
   }
