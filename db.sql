@@ -35,9 +35,9 @@ CREATE TABLE `Users` (
   `gpaBachelor` float(3,2) DEFAULT NULL,
   `gpaMaster` float(3,2) DEFAULT NULL,
   `city` char(6) NOT NULL,
-  `credits` smallint(3) NOT NULL DEFAULT '0',
-  `availableSpices` smallint(4) NOT NULL DEFAULT '0',
-  `consumedSpices` smallint(4) NOT NULL DEFAULT '0',
+  `credits` smallint(3) DEFAULT '0',
+  `availableSpices` smallint(4) DEFAULT '0',
+  `consumedSpices` smallint(4) DEFAULT '0',
   UNIQUE KEY `login` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

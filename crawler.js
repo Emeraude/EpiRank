@@ -24,10 +24,26 @@ function getStudent(login, cookies) {
     res.on('data', function(d) {
       x += d;
     }).on('end', function() {
-      var data = JSON.parse(x);
-      if (data.scolaryear != currentScolarYear())
+      var student = JSON.parse(x);
+      if (student.scolaryear != currentScolarYear())
 	return;
-      console.log(login + ' : ' + data.gpa[0].gpa);
+      var data = {
+	login: login,
+	firstname: student.firstname,
+	lastname: student.lastname,
+	promo: student.promo,
+	gpaBachelor: student.gpa[0].gpa,
+	gpaMaster: student.gpa[1] && student.gpa[1].gpa,
+	city: student.location,
+	credits: student.credits,
+	availableSpices: student.spice && student.spice.available_spice,
+	consumedSpices: student.spice && student.spice.consumed_spice
+      };
+      db.query('INSERT INTO `Users`(`login`, `firstname`, `lastname`, `promo`, `gpaBachelor`, `gpaMaster`, `city`, `credits`, `availableSpices`, `consumedSpices`) VALUES(:login, :firstname, :lastname, :promo, :gpaBachelor, :gpaMaster, :city, :credits, :availableSpices, :consumedSpices)', data, function(e, r) {
+	if (e)
+	  console.error(e);
+	console.log(login + ' added');
+      });
     });
   });
 }
