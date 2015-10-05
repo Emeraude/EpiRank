@@ -5,7 +5,7 @@ var Maria = require('mariasql');
 var cookie = require('cookie');
 var config = require('./config.json');
 
-var rp = new Rp(5);
+var rp = new Rp(50);
 var db = new Maria(config.db);
 
 function currentScolarYear() {
