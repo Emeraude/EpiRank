@@ -1,4 +1,10 @@
 {
   "login": "login_x",
-  "password": "4242"
+  "password": "4242",
+  "db": {
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "db": "epirank"
+  }
 }

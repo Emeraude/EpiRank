@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
 var Rp = require('requests-pool');
+var Maria = require('mariasql');
 var cookie = require('cookie');
 var config = require('./config.json');
+
 var rp = new Rp(5);
+var db = new Maria(config.db);
 
 function currentScolarYear() {
   var d = new Date();
