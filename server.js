@@ -10,24 +10,30 @@ var app = express();
 
 function invalidRoute(req, res) {
   res.statusCode = 400;
+  res.header('Content-Type', 'text/html')
   res.statusMessage = 'Invalid route',
   res.send(res.statusMessage);
 }
 
 function serveApi(req, res) {
-  if (!req.params.promo.match(/^\d+$/))
-    invalidRoute(req, res);
-  else {
+  res.header('Content-Type', 'application/json')
+  if (req.params.promo.match(/^\w{1,6}_\w$/)) {
+    db.query('SELECT * FROM `Users` WHERE login = :login', {login: req.params.promo}, function(e, r) {
+      res.send(r[0] || {});
+    });
+  }
+  else if (req.params.promo.match(/^\d+$/)) {
     query = 'SELECT * FROM `Users` WHERE `promo` = :promo';
     if (req.params.city) {
       req.params.city = '%' + req.params.city;
       query += ' AND `city` LIKE :city';
     }
-    res.header('Content-Type', 'application/json')
     db.query(query, req.params, function(e, r) {
       res.send(r);
     });
   }
+  else
+    invalidRoute(req, res);
 }
 
 app.listen(config.port)
