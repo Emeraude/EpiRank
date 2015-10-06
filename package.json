@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:Emeraude/EpiRank.git"
+  },
+  "author": "Emeraude",
   "license": "GPL-3.0",
   "dependencies": {
     "compression": "^1.6.0",
