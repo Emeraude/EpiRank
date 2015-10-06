@@ -1,5 +1,4 @@
 $(function() {
-  $.get('/api/2018/', function(data) {
     $('table').bootstrapTable({
       columns: [{
 	field: 'login',
@@ -34,8 +33,9 @@ $(function() {
 	title: 'GPA',
 	order: 'desc',
 	sortable: true
-      }],
-      data: data
+      }]
     });
+  $.get('/api/2018/', function(data) {
+    $('table').bootstrapTable('load', data)
   });
 });
