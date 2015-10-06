@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var express = require('express');
+var jade = require('jade');
 var Maria = require('mariasql');
 var config = require('./config.json');
 
@@ -30,9 +31,15 @@ function serveApi(req, res) {
 }
 
 app.listen(config.port)
-app.get('/api/:promo', serveApi)
+app.engine('jade', jade.__express)
+  .use(require('compression')())
+  .use(require('serve-static')('public/'))
+  .get('/api/:promo', serveApi)
   .get('/api/:promo/:city', serveApi)
   .get('/api*', invalidRoute)
+  .get('/', function(req, res) {
+    res.render('home.jade');
+  })
   .use(function(req, res) {
     res.statusCode = 404;
     res.statusMessage = 'Not found',
