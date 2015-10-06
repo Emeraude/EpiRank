@@ -10,7 +10,7 @@ mysql -u root -p < db.sql
 ### Crawler
 
 ```bash
-./crawler.js
+./crawler.js promotions...
 ```
 
 ### Server

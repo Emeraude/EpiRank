@@ -3,10 +3,20 @@
 var Rp = require('requests-pool');
 var Maria = require('mariasql');
 var cookie = require('cookie');
+var _ = require('lodash');
 var config = require('./config.json');
+
+if (process.argv.length < 3) {
+  console.error('Usage: ' + process.argv[1] + ' promotions...');
+  process.exit(1);
+}
 
 var rp = new Rp(50);
 var db = new Maria(config.db);
+var promos = [];
+
+for (i = 2; process.argv[i]; ++i)
+  promos.push(process.argv[i])
 
 function currentScolarYear() {
   var d = new Date();
@@ -60,7 +70,7 @@ rp.request({protocol: 'https', host: 'intra.epitech.eu', path: '/', port: 443, m
       console.log('loaded');
       var students = JSON.parse(x);
       for (i in students) {
-	if (students[i].promo == '2018'
+	if (_.includes(promos, students[i].promo)
 	    && students[i].course == 'bachelor')
 	  getStudent(students[i].login, cookie.serialize('PHPSESSID', cookies['PHPSESSID']));
       }
