@@ -2,7 +2,7 @@ doctype html
 html(lang='fr')
   head
     meta(charset='utf-8')
-    title Offline Epirank
+    title Epirank
     link(rel='stylesheet', href='css/bootstrap.min.css')
     link(rel='stylesheet', href='css/bootstrap-table.min.css')
     script(src='/js/jquery-1.11.3.min.js')
@@ -10,4 +10,5 @@ html(lang='fr')
     script(src='/js/bootstrap-table.min.js')
     script(src='/js/epirank.js')
   body
-    table
+    div(style='width: 60%; margin-left: 20%')
+      table(data-search='true', data-sort-name='gpaBachelor', data-sort-order='desc')

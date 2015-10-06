@@ -15,13 +15,13 @@ $(function() {
 	sortable: true
       }, {
 	field: 'city',
-	title: 'Ville',
+	title: 'Ville'
       }, {
 	field: 'promo',
 	title: 'Promo'
       }, {
-	field: 'gpaBachelor',
-	title: 'GPA',
+	field: 'availableSpices',
+	title: 'Épices',
 	order: 'desc',
 	sortable: true
       }, {
@@ -30,13 +30,8 @@ $(function() {
 	order: 'desc',
 	sortable: true
       }, {
-	field: 'consumedSpices',
-	title: 'Épices consommées',
-	order: 'desc',
-	sortable: true
-      }, {
-	field: 'availableSpices',
-	title: 'Épices disponibles',
+	field: 'gpaBachelor',
+	title: 'GPA',
 	order: 'desc',
 	sortable: true
       }],
