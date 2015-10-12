@@ -28,8 +28,10 @@ function currentScolarYear() {
 
 function getStudent(login, cookies) {
   rp.request({protocol: 'https', host: 'intra.epitech.eu', path:'/user/' + login + '/?format=json', port: 443, method: 'GET', headers:{ 'Cookie': cookies}, retry: true}, function(e, res) {
-    if (e)
+    if (e) {
       console.error(e);
+      return;
+    }
     var x = '';
     res.on('data', function(d) {
       x += d;
@@ -49,7 +51,7 @@ function getStudent(login, cookies) {
 	availableSpices: student.spice && student.spice.available_spice,
 	consumedSpices: student.spice && student.spice.consumed_spice
       };
-      db.query('INSERT INTO `Users`(`login`, `firstname`, `lastname`, `promo`, `gpaBachelor`, `gpaMaster`, `city`, `credits`, `availableSpices`, `consumedSpices`) VALUES(:login, :firstname, :lastname, :promo, :gpaBachelor, :gpaMaster, :city, :credits, :availableSpices, :consumedSpices) ON DUPLICATE KEY UPDATE `promo` = VALUES(`promo`), `gpaBachelor` = VALUES(`gpaBachelor`), `gpaMaster` = VALUES(`gpaMaster`), `city` = VALUES(`city`), `credits` = VALUES(`credits`), `availableSpices` = VALUES(`availableSpices`), `consumedSpices` = VALUES(`consumedSpices`)', data, { metadata: true }, function(e, r) {
+      db.query('INSERT INTO `Users`(`login`, `firstname`, `lastname`, `promo`, `gpaBachelor`, `gpaMaster`, `city`, `credits`, `availableSpices`, `consumedSpices`) VALUES(:login, :firstname, :lastname, :promo, :gpaBachelor, :gpaMaster, :city, :credits, :availableSpices, :consumedSpices) ON DUPLICATE KEY UPDATE `promo` = VALUES(`promo`), `gpaBachelor` = VALUES(`gpaBachelor`), `gpaMaster` = VALUES(`gpaMaster`), `city` = VALUES(`city`), `credits` = VALUES(`credits`), `availableSpices` = VALUES(`availableSpices`), `consumedSpices` = VALUES(`consumedSpices`)', data, function(e, r) {
 	if (e) {
 	  console.error(e);
 	  return;
@@ -71,7 +73,7 @@ rp.request({protocol: 'https', host: 'intra.epitech.eu', path: '/', port: 443, m
       var students = JSON.parse(x);
       for (i in students) {
 	if (_.includes(promos, students[i].promo)
-	    && students[i].course == 'bachelor')
+	    && students[i].course_code.match(/(bachelor|master)\/classic/))
 	  getStudent(students[i].login, cookie.serialize('PHPSESSID', cookies['PHPSESSID']));
       }
     });
