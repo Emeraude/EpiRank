@@ -27,7 +27,7 @@ function currentScolarYear() {
 }
 
 function getStudent(login, cookies) {
-  rp.request({protocol: 'https', host: 'intra.epitech.eu', path:'/user/' + login + '/?format=json', port: 443, method: 'GET', headers:{ 'Cookie': cookies}, retry: true}, function(e, res) {
+  rp.request({protocol: 'https', host: 'intra.epitech.eu', path:'/user/' + login + '/?format=json', method: 'GET', headers:{ 'Cookie': cookies}, retry: true}, function(e, res) {
     if (e) {
       console.error(e);
       return;
@@ -62,7 +62,7 @@ function getStudent(login, cookies) {
   });
 }
 
-rp.request({protocol: 'https', host: 'intra.epitech.eu', path: '/', port: 443, method: 'POST'}, {login: config.login, password: config.password}, function(e, res) {
+rp.request({protocol: 'https', host: 'intra.epitech.eu', path: '/', method: 'POST'}, {login: config.login, password: config.password}, function(e, res) {
   var cookies = cookie.parse(res.headers['set-cookie'][0]);
   rp.request({protocol: 'https', host: 'intra.epitech.eu', path:'/user/complete?format=json', port: 443, method: 'GET', headers:{ 'Cookie': cookie.serialize('PHPSESSID', cookies['PHPSESSID'])}}, function(e, res) {
     var x = '';
